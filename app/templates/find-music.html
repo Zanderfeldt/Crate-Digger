@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<form method='POST' id="artist_search">
+<div class="card mb-4 mt-4" style="background-color:rgba(0, 0, 0, 0.5); color:white;">
+  <h5 class="card-header" style="background-color:rgba(0, 255, 55, 0.055);">1. Search for artists or songs to add</h5>
+  <div class="card-body">
+
+  
+    {{ form.hidden_tag() }}
+      {{ form.name(placeholder='Enter an Artist or Track', class='form-control', autocomplete='off') }}
+      <div class="container mt-3">
+          <div class="form-group" data-toggle="buttons">
+              {% for field in form.input_type %}
+              <div class="form-check">
+                  {{ field.label(class='form-check-label') }}
+                  {{ field(class='form-check-input', id='radio') }}
+              </div>
+              {% endfor %}
+              
+          </div>
+          <button id="artist_search_button" class="btn btn-outline-secondary ml-3 mt-1">Add Search Results</button>
+      </div>
+  </div>
+</div>
+
+<div class="card mb-3" style="background-color:rgba(0, 0, 0, 0.5); color:white;">
+  <h5 class="card-header" style="background-color:rgba(0, 255, 55, 0.055);">2. Make your selections</h5>
+  <div id="artist_search_results" class="btn-group-toggle" data-toggle="buttons">
+    <!-- Artist or song results append here -->
+  </div>
+  <div class="form-group card-body mt-2">
+    {{form.genre(class='form-control')}}
+  </div>
+
+  <div class="btn-group" data-toggle="buttons">
+           
+              {{form.acousticness(class='btn-check', autocomplete="on")}}
+              {{form.acousticness.label(class='btn btn-outline-success btn-sm m-2')}}
+                
+        
+              {{form.danceability(class='btn-check', autocomplete="on")}}
+              {{form.danceability.label(class='btn btn-outline-success btn-sm m-2')}}
+              
+            
+              {{form.energy(class='btn-check', autocomplete="on")}}
+              {{form.energy.label(class='btn btn-outline-success btn-sm m-2')}}
+              
+
+              {{form.instrumentalness(class='btn-check', autocomplete="on")}}
+              {{form.instrumentalness.label(class='btn btn-outline-success btn-sm m-2')}}
+              
+
+              {{form.liveness(class='btn-check', autocomplete="on")}}
+              {{form.liveness.label(class='btn btn-outline-success btn-sm m-2')}}
+              
+
+              {{form.speechiness(class='btn-check', autocomplete="on")}}
+              {{form.speechiness.label(class='btn btn-outline-success btn-sm m-2')}}
+              
+              {{form.happy(class='btn-check', autocomplete="on")}}
+              {{form.happy.label(class='btn btn-outline-success btn-sm m-2')}}
+              
+            
+   </div>
+</div>
+
+<hr>
+<div class="card mb-3" style="background-color:rgba(0, 0, 0, 0.5); color:white;">
+<div class="form-row m-2">
+  <div class="col-auto">
+      {{form.key()}}
+  </div>
+  <div class="col-auto mt-1">
+      {{form.mode()}}
+  </div>
+
+</div>
+
+<div class="btn-group" data-toggle="buttons">
+
+  
+  <input type="checkbox" name="include_loudness" id="include_loudness" value="1" class="btn-check" autocomplete="on">
+  <label class="btn btn-outline-success btn-sm m-2 " for="include_loudness">Enable Loudness
+    <input type="range" id="loudness" name="loudness" min="-60" max="0" class="custom-range" onchange="document.getElementById('loudness_val').innerText = document.getElementById('loudness').value ">
+    <span id="loudness_val"></span>
+  </label>
+  
+  
+  <input type="checkbox" name="include_popularity" id="include_popularity" value="1" class="btn-check" autocomplete="on">
+  <label class="btn btn-outline-success btn-sm m-2" for="include_popularity">Enable Popularity
+    <input type="range" id="popularity" name="popularity" min="0" max="100" class="custom-range" onchange="document.getElementById('popularity_val').innerText = document.getElementById('popularity').value ">
+    <span id="popularity_val"></span>
+  </label>
+
+  
+  <input type="checkbox" name="include_tempo" id="include_tempo" value="1" class="btn-check" autocomplete="on">
+  <label class="btn btn-outline-success btn-sm m-2" for="include_tempo">Enable Tempo (beats per minute from 0-300)
+  <input type="range" id="tempo" name="tempo" min="0" max="300" class="custom-range" onchange="document.getElementById('tempo_val').innerText = document.getElementById('tempo').value + ' bpm' ">
+  <span id="tempo_val"></span>
+  </label>
+
+  
+  <input type="checkbox" name="include_min_duration" id="include_min_duration" value="1" class="btn-check" autocomplete="on">
+  <label class="btn btn-outline-success btn-sm m-2" for="include_min_duration">Min. Duration (1-10 mins.)
+  <input type="range" id="min_duration" name="min_duration" min="60000" max="600000" class="custom-range" onchange="document.getElementById('min_val').innerText = (document.getElementById('min_duration').value/60000).toFixed(2) + ' mins.' ">
+  <span id="min_val"></span>
+  </label>
+
+  
+  <input type="checkbox" name="include_max_duration" id="include_max_duration" value="1" class="btn-check" autocomplete="on">
+  <label class="btn btn-outline-success btn-sm m-2" for="include_max_duration">Max. Duration (1-10 mins.)
+  <input type="range" id="max_duration" name="max_duration" min="60000" max="600000" class="custom-range" onchange="document.getElementById('max_val').innerText = (document.getElementById('max_duration').value/60000).toFixed(2) + ' mins.' ">
+  <span id="max_val"></span>
+  </label>
+
+</div>
+</div>
+<div class="d-flex justify-content-center">
+  <button class="btn btn-success btn-lg m-2 col-6" type="submit">3. Dig</button>  
+</div>
+</form>
+
+
+{% endblock %}

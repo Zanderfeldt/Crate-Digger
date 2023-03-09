@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="card mt-4 shadow" style="background-color:rgba(0, 0, 0, 0.5); color: white;">
+  <div class="card-header d-flex justify-content-between">
+    <h5 class="d-inline-flex align-items-center" style="margin-bottom: 0rem;">{{playlist.name}}</h5>
+    <div class="d-inline-flex justify-content-end">{{playlist.description}}</div>
+  </div>
+  <div class="card-body">
+      {% for track in playlist.songs %}
+          <div class="container d-flex mb-1 align-items-center" style="background: rgb(255,255,255);
+          background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgb(23, 100, 52) 20%, rgba(255, 255, 255, 0) 100%);">
+            <span id="{{track.song_seed}}" class="col-1 text-center"><strong>{{ track.bpm }} bpm</strong><div>Key: {{ track.key }}</div>
+              <a href="/delete/{{playlist.id}}/{{track.id}}" class="btn btn-outline-danger btn-sm m-2">Delete</a>
+              </span>
+              </label>
+            </span>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/{{track.song_seed}}?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+      {% endfor %}
+  </div>
+</div>
+<a href="/delete/{{playlist.id}}" class="btn btn-outline-danger btn-sm m-2" style="opacity: 0.5;">Delete Playlist</a>
+
+
+{% endblock %}

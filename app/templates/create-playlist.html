@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="row justify-content-center align-items-center">
+  <div class="container-md w-50">
+    <div class="card mt-4 shadow" style="background-color:rgba(0, 0, 0, 0.5); color:white;">
+      <h5 class="card-header" style="background-color:rgba(162, 0, 255, 0.144); color:white;">Create a new playlist</h5>
+      <div class="card-body">
+        <form method="POST">
+          {{form.hidden_tag()}}
+          {% for field in form if field.widget.input_type != 'hidden' %}
+          <div class="form-group">
+            {{field.label}}
+            {{field(class_="form-control", autocomplete='off')}}
+            {% for err in field.errors %}
+            <small>
+              {{err}}
+            </small>
+            {% endfor %}
+          </div>
+          {% endfor %}
+          <button class="btn btn-outline-success mt-2" >Create</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

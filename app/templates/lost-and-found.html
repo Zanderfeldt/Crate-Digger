@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<form action="/add" method="POST">
+<div class="d-flex justify-content-between">
+  <h1 class="d-inline-flex align-items-center" style="margin-bottom: 0rem; color:white;">Lost n' Found</h1>
+  <div class="d-inline-flex justify-content-end">
+    <label for="playlistDropdown" style="color: white;"><button type="submit" class="btn btn-outline-light btn-sm me-2" id="add_song">Add Selections</button>to Playlist:</label>
+    <select name="playlist" id="playlistDropdown" class="form-select-sm ms-3" style="height: 2rem;">
+    {% for playlist in playlists %}
+    <option value="{{playlist.id}}">{{playlist.name}}</option>
+    {% endfor %}
+   </select>
+
+  
+  </div>
+</div>
+<div class="card-group card-group-scroll" >
+  {% for song in songs %}
+  <div class="card" style="background-color:rgba(0, 0, 0, 0.5);">
+    <iframe src="https://open.spotify.com/embed/track/{{song.song_seed}}?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <div class="card-body">
+          <h5 class="card-title" style="color: white;">{{song.song_name}}</h5>
+          <h4 style="color: rgb(77, 75, 75);">{{song.artist_name}}</h4>
+          <p class="card-text">
+              <h6 style="color: rgb(23, 100, 52)">Playlists:</h6>
+              {% for playlist in song.playlists %}
+              <a href="/playlists/{{playlist.id}}"  style="color:rgba(200, 141, 255, 0.651)">{{playlist.name}}</a>
+              {% endfor %}
+          </p>
+      </div>
+      <div class="card-footer">
+          <small style="color:blueviolet;">{{song.bpm}} bpm | {{song.key}}</small>
+          <input type="checkbox" name="songs" id="{{song.song_name}}" value="{{song.id}}" class="btn-check" autocomplete="on">
+              <label class="btn btn-outline-success btn-sm m-2 " for="{{song.song_name}}">Add
+              </span>
+              </label>
+      </div>
+  </div>
+  {% endfor %}
+</div>
+</form>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container d-flex justify-content-center">
+<a href="/playlist-create" class=""><button class="btn btn-outline-light btn-sm m-2" type="submit">Create New</button></a>
+</div>
+<div class="container d-flex justify-content-center">
+  
+  <ul class="list-group ">
+    {% for playlist in playlists %}
+    <li class="list-group-item d-flex flex-nowrap justify-content-between align-content-center text-white" onclick="window.location.href='/playlists/{{playlist.id}}'">
+
+      <div class="d-flex flex-row">
+        <img src="static/icons8-record-67.png" width="50px" height="50px" style="filter: drop-shadow(5px 5px 5px #222)"/>
+        <div class="container ml-2" style="width: 14rem;">
+          <h6 class="mb-0 text-truncate">{{playlist.name}}</h6>
+          <div class="about">
+            <span>{{playlist.count_songs(playlist.id)}} tracks</span>
+            
+          </div>
+        </div>
+      </div>
+      <div class="text-nowrap flex-row content-show">
+       <small>{{playlist.description}}</small>
+      </div>
+     
+
+    </li>
+    {% endfor %}
+  </ul>
+  
+  </div>
+
+  
+{% endblock %}
+

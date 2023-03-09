@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block body_class %}onboarding{% endblock %}
+
+{% block content %}
+
+  <div class="row justify-content-md-center">
+  <div class="col-md-7 col-lg-4">
+    <h2 class="join-message">Join Crate Digger</h2>
+    <form method="POST" id="user_form">
+      {{ form.hidden_tag() }}
+
+      {% for field in form if field.widget.input_type != 'hidden' %}
+        {% for error in field.errors %}
+          <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+        {{ field(placeholder=field.label.text, class="form-control mb-2", autocomplete='off') }}
+      {% endfor %}
+
+      <button class="btn btn-outline-success">Sign Up</button>
+      <a href="/login" style="color:rgba(200, 141, 255, 0.651); text-decoration: none;" class="ms-2">Already have an account?</a>
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}
