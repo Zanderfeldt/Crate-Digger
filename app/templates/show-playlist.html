@@ -8,7 +8,17 @@
     <div class="d-inline-flex justify-content-end">{{playlist.description}}</div>
   </div>
   <div class="card-body">
-      {% for track in playlist.songs %}
+    Sort By: 
+    {% if sort == None %}
+    <a href="/playlists/{{playlist.id}}/key" class="btn btn-outline-secondary btn-sm py-0 mb-1">Key</a><a href="/playlists/{{playlist.id}}/bpm" data-sort="bpm" class="btn btn-outline-secondary btn-sm py-0 mb-1">BPM</a>
+    {% endif %}
+    {% if sort == 'bpm' %}
+    <a href="/playlists/{{playlist.id}}/key" class="btn btn-outline-secondary btn-sm py-0 mb-1">Key</a><a href="/playlists/{{playlist.id}}" class="btn btn-sm py-0 mb-1" style="text-decoration: none; color: violet"> X</a>
+    {% endif %}
+    {% if sort == 'key' %}
+    <a href="/playlists/{{playlist.id}}/bpm" data-sort="bpm" class="btn btn-outline-secondary btn-sm py-0 mb-1">BPM</a><a href="/playlists/{{playlist.id}}" class="btn btn-sm py-0 mb-1" style="text-decoration: none; color: violet"> X</a>
+    {% endif %}
+      {% for track in songlist %}
           <div class="container d-flex mb-1 align-items-center" style="background: rgb(255,255,255);
           background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgb(23, 100, 52) 20%, rgba(255, 255, 255, 0) 100%);">
             <span id="{{track.song_seed}}" class="col-1 text-center"><strong>{{ track.bpm }} bpm</strong><div>Key: {{ track.key }}</div>

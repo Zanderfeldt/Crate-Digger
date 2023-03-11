@@ -6,7 +6,8 @@ from utilities import get_id, get_genres
 from unittest import TestCase
 from unittest.mock import patch, Mock
 import os
-os.environ['DATABASE_URL'] = 'postgresql:///crate-digger-test'
+# os.environ['DATABASE_URL'] = 'postgresql:///crate-digger-test'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///crate-digger-test'
 app.config['TESTING'] = True
 app.config['WTF_CSRF_ENABLED'] = False
 db.create_all()

@@ -257,8 +257,7 @@ def get_music():
                 payload=track_id_payload, headers=headers).get_bpms()
             bpm_dict = {
                 track['id']: [round(track['tempo']), track['key']] for track in bpm_resp['audio_features']}
-            # import pdb
-            # pdb.set_trace()
+
             # save track ids, tempos, and keys to session for use in results view
             session['track_id_list'] = track_id_payload['ids']
             session['bpm_dict'] = bpm_dict
@@ -384,20 +383,32 @@ def delete_playlist(playlist_id):
     return redirect('/playlists')
 
 
-@app.route('/playlists/<int:playlist_id>')
-def show_playlist(playlist_id):
+@app.route('/playlists/<int:playlist_id>', defaults={'sort': None})
+@app.route('/playlists/<int:playlist_id>/<sort>')
+def show_playlist(playlist_id, sort):
     """Show all the songs in a playlist"""
 
     if not g.user:
         return redirect('/')
 
     playlist = Playlist.query.get_or_404(playlist_id)
+    songlist = playlist.songs
 
     if playlist.user_id != g.user.id:
         flash("You don't have access to that playlist", 'danger')
         return redirect('/')
 
-    return render_template('show-playlist.html', playlist=playlist)
+    if sort == 'bpm':
+        songs = [song.id for song in playlist.songs]
+        songlist = Song.query.filter(
+            Song.id.in_(songs)).order_by(Song.bpm.asc())
+
+    if sort == 'key':
+        songs = [song.id for song in playlist.songs]
+        songlist = Song.query.filter(
+            Song.id.in_(songs)).order_by(Song.key.asc())
+
+    return render_template('show-playlist.html', songlist=songlist, playlist=playlist, sort=sort)
 
 
 @app.route('/delete/<int:playlist_id>/<int:song_id>', methods=['GET', 'POST'])
@@ -419,8 +430,9 @@ def delete_song_from_playlist(playlist_id, song_id):
     return redirect(f'/playlists/{playlist_id}')
 
 
-@app.route('/lost-n-found')
-def show_lost_and_found():
+@app.route('/lost-n-found', defaults={'sort': None})
+@app.route('/lost-n-found/<sort>')
+def show_lost_and_found(sort):
     """Show tracks that the user was presented in previous searches"""
 
     if not g.user:
@@ -428,9 +440,15 @@ def show_lost_and_found():
     user = g.user
     songs = Song.query.order_by(Song.id.desc()).all()
 
+    if sort == 'bpm':
+        songs = Song.query.order_by(Song.bpm.asc()).all()
+
+    if sort == 'key':
+        songs = Song.query.order_by(Song.key.asc()).all()
+
     if len(songs) == 0:
         flash("Nothing in Lost n' Found yet", "danger")
         return redirect('/')
     playlists = Playlist.query.filter(Playlist.user_id == user.id).all()
 
-    return render_template('lost-and-found.html', songs=songs, playlists=playlists)
+    return render_template('lost-and-found.html', songs=songs, playlists=playlists, sort=sort)

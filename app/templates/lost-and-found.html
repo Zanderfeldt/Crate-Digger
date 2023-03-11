@@ -41,4 +41,14 @@
   {% endfor %}
 </div>
 </form>
+<span style="color: white;">Sort By:</span>  
+    {% if sort == None %}
+    <a href="/lost-n-found/key" class="btn btn-outline-secondary btn-sm py-0 mt-1">Key</a><a href="/lost-n-found/bpm" data-sort="bpm" class="btn btn-outline-secondary btn-sm py-0 mt-1">BPM</a>
+    {% endif %}
+    {% if sort == 'bpm' %}
+    <a href="/lost-n-found/key" class="btn btn-outline-secondary btn-sm py-0 mt-1">Key</a><a href="/lost-n-found" class="btn btn-sm py-0 mt-1" style="text-decoration: none; color: violet"> X</a>
+    {% endif %}
+    {% if sort == 'key' %}
+    <a href="/lost-n-found/bpm" data-sort="bpm" class="btn btn-outline-secondary btn-sm py-0 mt-1">BPM</a><a href="/lost-n-found" class="btn btn-sm py-0 mt-1" style="text-decoration: none; color: violet"> X</a>
+    {% endif %}
 {% endblock %}
