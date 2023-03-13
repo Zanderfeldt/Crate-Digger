@@ -6,12 +6,12 @@ This website gives users a way to seed Spotify's recommendation algorithm with a
 
 ## The Tech Stack:
 
--HTML
--CSS
--JavaScript
--jQuery
--Python
--Flask
+- HTML
+- CSS
+- JavaScript
+- jQuery
+- Python
+- Flask
 
 ## API Endpoints used: 
 
