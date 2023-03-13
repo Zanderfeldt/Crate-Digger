@@ -8,20 +8,27 @@ from forms import SignupForm, LoginForm, SongForm, PlaylistForm
 from utilities import get_id, get_genres,  get_keys
 from client import SpotifyClient
 import requests
+import os
+import re
 
 CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
 app.app_context().push()
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///crate-digger'
+
+uri = os.environ.get('DATABASE_URL', "postgresql:///crate-digger")
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+app.config["SQLALCHEMY_DATABASE_URI"] = uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'hellosecret1')
 
 connect_db(app)
 db.create_all()
 
-app.config['SECRET_KEY'] = "I'LL NEVER TELL!!"
+
 
 
 @app.before_request
