@@ -14,6 +14,7 @@ This website gives users a way to seed Spotify's recommendation algorithm with a
 - jQuery
 - Python
 - Flask
+- PostgreSQL
 
 ## API Endpoints used: 
 
