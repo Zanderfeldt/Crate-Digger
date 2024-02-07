@@ -16,7 +16,7 @@ CURR_USER_KEY = "curr_user"
 app = Flask(__name__)
 app.app_context().push()
 
-uri = os.environ.get('DATABASE_URL', "postgres://lompjxzi:hy65de_Jo9U64sZjXBSklNg0eN2pnA-b@bubble.db.elephantsql.com/lompjxzi")
+uri = os.environ.get('DATABASE_URL', "postgresql:///crate-digger")
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
 app.config["SQLALCHEMY_DATABASE_URI"] = uri
