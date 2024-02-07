@@ -1,6 +1,6 @@
 # Crate Digger
 
-https://crate-digger-app.herokuapp.com/ (live demo)
+## https://crate-digger.onrender.com (live demo)
 
 ![GUI](static/Crate%20Digger%20GUI.png)
 
