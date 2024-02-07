@@ -14,7 +14,7 @@ import re
 CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
-app.app_context().push()
+
 
 uri = os.environ.get('DATABASE_URL', "postgresql:///crate-digger")
 if uri.startswith("postgres://"):
@@ -26,7 +26,7 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'hellosecret1')
 
 connect_db(app)
-db.create_all()
+
 
 
 
