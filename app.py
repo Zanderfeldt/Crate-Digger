@@ -123,7 +123,7 @@ def login():
 def demo():
     """Log in with demo credentials and redirect to homepage."""
 
-    demo_username = 'Test'
+    demo_username = 'Demo'
     demo_password = 'test123'
 
     user = User.authenticate(demo_username, demo_password)
