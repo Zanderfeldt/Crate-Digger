@@ -119,7 +119,23 @@ def login():
 
     return render_template('login.html', form=form)
 
+@app.route('/demo')
+def demo():
+    """Log in with demo credentials and redirect to homepage."""
 
+    demo_username = 'Test'
+    demo_password = 'test123'
+
+    user = User.authenticate(demo_username, demo_password)
+
+    if user:
+        do_login(user)
+        flash(f"Hello, {user.username}!", "success")
+        return redirect("/")
+    else:
+        flash("Invalid Demo Credentials.", 'danger')
+        return redirect("/login")
+    
 @app.route('/logout')
 def logout():
     """Handle logout of user"""
